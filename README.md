@@ -4,57 +4,60 @@
 
 ---
 
-### 🎯 Contexto do Projeto
+### 🎯 Contexto e Desafio de Negócio
 
-Este projeto simula um cenário real em que a alta volatilidade de preços de componentes exige um acompanhamento automatizado. A proposta foi implementar um pipeline ponta-a-ponta para:
-
-* **Centralizar** dados operacionais coletados via Web Scraping.
-* **Automatizar** o processamento e a limpeza de dados brutos.
-* **Apoiar** a tomada de decisão estratégica com visualizações analíticas.
+Este projeto simula um cenário real onde a alta volatilidade de preços de componentes exige um acompanhamento automatizado para otimização de compras. A solução foi desenhada para resolver três dores principais:
+* **Fragmentação:** Dados espalhados em diversos e-commerces.
+* **Inconsistência:** Preços em formatos variados e dados não estruturados.
+* **Latência:** Tempo gasto na coleta manual de informações.
 
 ---
 
 ### 🏗️ Arquitetura e Pipeline de Dados
 
-O pipeline foi construído utilizando a **Metodologia Medallion**, garantindo organização e qualidade em cada etapa:
+O pipeline segue a **Metodologia Medallion**, garantindo que o dado seja refinado e auditável em qualquer etapa do processo:
 
-* **Camada Bronze (Ingestão):** Captura automatizada de dados crus para preservação da fonte original.
-* **Camada Silver (Transformação):** Saneamento com **Pandas**, normalização de tipos e tratamento de nulos.
-* **Camada Gold (Consumo):** Dados modelados e persistidos em **SQL (SQLite)** para alta performance analítica.
+* **Camada Bronze (Raw):** * **O que acontece:** Extração via Web Scraping salvando os dados brutos.
+    * **Propósito:** Manter a "fonte da verdade" intacta. Se houver erro no processamento futuro, podemos reprocessar tudo sem precisar de uma nova coleta.
+* **Camada Silver (Trusted):** * **O que acontece:** Limpeza profunda utilizando a biblioteca **Pandas**. 
+    * **Detalhes Técnicos:** Conversão de strings de moeda para float, tratamento de valores nulos (NaN) e padronização dos nomes das marcas para evitar duplicidade na análise.
+* **Camada Gold (Refined):** * **O que acontece:** Modelagem dos dados transformados em banco de dados **SQLite**.
+    * **Propósito:** Estruturar o dado de forma relacional para que ferramentas de BI (Streamlit/Looker) consumam informações já agregadas e performáticas.
 
 ---
 
-### 📊 Dashboard Analítico
+### 📈 Entrega de Valor (Dashboard Analítico)
 
-Para a entrega de valor, foi desenvolvido um dashboard utilizando **Streamlit**, focado em indicadores de mercado:
+Para a visualização, utilizei o **Streamlit** integrado ao **Plotly** para fornecer indicadores que apoiam a tomada de decisão:
 
 <p align="center">
   <img src="dashboard_foto.png" width="95%" style="border-radius: 10px;" />
 </p>
 
-O dashboard apresenta métricas como receita média por marca, distribuição de modelos e integridade do pipeline.
+* **Análise de Dispersão:** Identificação de modelos com preços fora da curva (Outliers).
+* **Market Share por Marca:** Visualização da dominância de estoque entre marcas como NVIDIA e AMD.
+* **Linhagem de Dados:** Monitoramento da saúde de cada camada do pipeline.
 
 ---
 
 ### 🧰 Tecnologias Utilizadas
 
-| Categoria | Tecnologia |
-| :--- | :--- |
-| **Linguagem** | Python 3.x |
-| **Processamento** | Pandas, NumPy |
-| **Banco de Dados** | SQLite3 (SQL) |
-| **Visualização** | Streamlit, Plotly |
-| **Versionamento** | Git & GitHub |
+| Categoria | Tecnologia | Justificativa |
+| :--- | :--- | :--- |
+| **Linguagem** | Python 3.x | Versatilidade para ETL e manipulação de dados. |
+| **Processamento** | Pandas | Eficiência no tratamento de grandes volumes de dados. |
+| **Banco de Dados** | SQLite3 | Banco relacional leve e portátil para o projeto. |
+| **Visualização** | Streamlit | Interface rápida para prototipagem de dashboards. |
+| **Versionamento** | Git & GitHub | Controle de versão e documentação técnica. |
 
 ---
 
-### 💡 Principais Aprendizados
+### 💡 Principais Aprendizados e Evolução
 
-Durante o desenvolvimento, foram explorados conceitos fundamentais da área:
-* Construção de pipelines de dados **ETL/ELT**.
-* Modelagem relacional e integridade de dados.
-* Escalabilidade de scripts de automação.
-* Apresentação de métricas de negócio (BI).
+O desenvolvimento deste projeto permitiu a aplicação prática de conceitos de **Engenharia de Software aplicados a Dados**:
+* **Modularização:** Separação dos scripts em pastas (`scripts/`, `sql/`) para facilitar a manutenção.
+* **Resiliência:** Tratamento de erros durante a extração para evitar quedas no pipeline.
+* **SQL DDL:** Criação de esquemas de tabelas que garantem a integridade dos dados na Gold.
 
 ---
 
