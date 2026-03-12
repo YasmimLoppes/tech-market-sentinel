@@ -1,46 +1,64 @@
-# 🛡️ Tech Market Sentinel: Monitoramento Inteligente de Hardware
+# 🛡️ Tech Market Sentinel: Pipeline de Engenharia de Dados
 
-Este repositório contém um pipeline de **Engenharia de Dados** desenvolvido para automatizar a captura, o tratamento e a análise de preços de GPUs no mercado brasileiro.
-
----
-
-### 🎯 Proposta do Projeto
-Em um cenário de alta flutuação de preços no setor de hardware, este projeto surge para substituir a coleta manual por um fluxo automatizado. 
-
-* **Centralização:** Dados consolidados em um único repositório.
-* **Automação:** Processamento ponta-a-ponta (Scraping ao Dashboard).
-* **Inteligência:** Transformação de dados brutos em métricas estratégicas.
+> Projeto desenvolvido como estudo prático de **Engenharia de Dados**, simulando a construção de uma arquitetura moderna para monitoramento estratégico do mercado de hardware.
 
 ---
 
-### 📈 Entrega de Valor (Dashboard)
+### 🎯 Contexto do Projeto
+
+Este projeto simula um cenário real em que a alta volatilidade de preços de componentes exige um acompanhamento automatizado. A proposta foi implementar um pipeline ponta-a-ponta para:
+
+* **Centralizar** dados operacionais coletados via Web Scraping.
+* **Automatizar** o processamento e a limpeza de dados brutos.
+* **Apoiar** a tomada de decisão estratégica com visualizações analíticas.
+
+---
+
+### 🏗️ Arquitetura e Pipeline de Dados
+
+O pipeline foi construído utilizando a **Metodologia Medallion**, garantindo organização e qualidade em cada etapa:
+
+* **Camada Bronze (Ingestão):** Captura automatizada de dados crus para preservação da fonte original.
+* **Camada Silver (Transformação):** Saneamento com **Pandas**, normalização de tipos e tratamento de nulos.
+* **Camada Gold (Consumo):** Dados modelados e persistidos em **SQL (SQLite)** para alta performance analítica.
+
+---
+
+### 📊 Dashboard Analítico
+
+Para a entrega de valor, foi desenvolvido um dashboard utilizando **Streamlit**, focado em indicadores de mercado:
+
 <p align="center">
-  <img src="dashboard_foto.png" width="100%" alt="Dashboard Sentinel" />
+  <img src="dashboard_foto.png" width="95%" style="border-radius: 10px;" />
 </p>
 
----
-
-### 🏗️ Arquitetura e Fluxo de Dados
-O projeto utiliza a **Metodologia Medallion**, garantindo o refinamento do dado:
-
-1.  **Camada Bronze (Ingestão):** Captura direta via Web Scraping (Dados Brutos).
-2.  **Camada Silver (Tratamento):** Saneamento com **Pandas** (Limpeza e Tipagem).
-3.  **Camada Gold (Consumo):** Modelagem em **SQLite** otimizada para análise.
+O dashboard apresenta métricas como receita média por marca, distribuição de modelos e integridade do pipeline.
 
 ---
 
-### 🧰 Toolbox Tecnológica
-* **Linguagem:** Python 🐍
-* **Bibliotecas:** Pandas, Streamlit, SQLite3
-* **Infraestrutura:** Git, GitHub, VS Code
+### 🧰 Tecnologias Utilizadas
+
+| Categoria | Tecnologia |
+| :--- | :--- |
+| **Linguagem** | Python 3.x |
+| **Processamento** | Pandas, NumPy |
+| **Banco de Dados** | SQLite3 (SQL) |
+| **Visualização** | Streamlit, Plotly |
+| **Versionamento** | Git & GitHub |
 
 ---
 
-### 💡 Evolução e Insights
-O desenvolvimento permitiu a consolidação de conceitos fundamentais como:
-* Implementação de fluxos **ETL/ELT**.
-* Aplicação prática de **Camadas de Dados**.
-* Persistência em ambientes relacionais (**SQL**).
+### 💡 Principais Aprendizados
+
+Durante o desenvolvimento, foram explorados conceitos fundamentais da área:
+* Construção de pipelines de dados **ETL/ELT**.
+* Modelagem relacional e integridade de dados.
+* Escalabilidade de scripts de automação.
+* Apresentação de métricas de negócio (BI).
 
 ---
-**Desenvolvido por Yasmin Lopes** *Estudante de ADS com foco em Engenharia de Dados.*
+
+### 👩‍💻 Autora
+
+**Yasmin Lopes**
+*Estudante de ADS com foco em Engenharia de Dados.*
