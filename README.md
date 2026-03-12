@@ -1,63 +1,74 @@
 # 🛡️ Tech Market Sentinel: Pipeline de Engenharia de Dados
 
-> Projeto desenvolvido como estudo prático de **Engenharia de Dados**, simulando a construção de uma arquitetura moderna para monitoramento estratégico do mercado de hardware.
+> Projeto integrador desenvolvido como estudo prático de **Engenharia de Dados**, focado na construção de uma arquitetura ponta-a-ponta para monitoramento estratégico do mercado de hardware.
 
 ---
 
-### 🎯 Contexto e Desafio de Negócio
+### 🎯 Contexto do Projeto
 
-Este projeto simula um cenário real onde a alta volatilidade de preços de componentes exige um acompanhamento automatizado para otimização de compras. A solução foi desenhada para resolver três dores principais:
-* **Fragmentação:** Dados espalhados em diversos e-commerces.
-* **Inconsistência:** Preços em formatos variados e dados não estruturados.
-* **Latência:** Tempo gasto na coleta manual de informações.
-
----
-
-### 🏗️ Arquitetura e Pipeline de Dados
-
-O pipeline segue a **Metodologia Medallion**, garantindo que o dado seja refinado e auditável em qualquer etapa do processo:
-
-* **Camada Bronze (Raw):** * **O que acontece:** Extração via Web Scraping salvando os dados brutos.
-    * **Propósito:** Manter a "fonte da verdade" intacta. Se houver erro no processamento futuro, podemos reprocessar tudo sem precisar de uma nova coleta.
-* **Camada Silver (Trusted):** * **O que acontece:** Limpeza profunda utilizando a biblioteca **Pandas**. 
-    * **Detalhes Técnicos:** Conversão de strings de moeda para float, tratamento de valores nulos (NaN) e padronização dos nomes das marcas para evitar duplicidade na análise.
-* **Camada Gold (Refined):** * **O que acontece:** Modelagem dos dados transformados em banco de dados **SQLite**.
-    * **Propósito:** Estruturar o dado de forma relacional para que ferramentas de BI (Streamlit/Looker) consumam informações já agregadas e performáticas.
+Este projeto simula um cenário real de negócio onde a empresa necessitava monitorar a volatilidade de preços de GPUs para otimização de estoque e compras. 
+A solução desenvolvida permite:
+* **Centralizar** dados provenientes de fontes externas (Web).
+* **Automatizar** o processamento de dados brutos para análise rápida.
+* **Garantir a qualidade** das informações através de camadas de validação.
+* **Apoiar a tomada de decisão** com indicadores visuais dinâmicos.
 
 ---
 
-### 📈 Entrega de Valor (Dashboard Analítico)
+### 🔌 Conexão e Exploração de Dados
 
-Para a visualização, utilizei o **Streamlit** integrado ao **Plotly** para fornecer indicadores que apoiam a tomada de decisão:
+O pipeline inicia com a etapa de **Data Ingestion** via Web Scraping. Diferente de bases prontas, aqui foi necessário lidar com dados não estruturados.
+Nessa etapa foram realizadas:
+* Mapeamento de seletores dinâmicos para captura de preços.
+* Tratamento de requisições para garantir a estabilidade da coleta.
+* Exploração inicial da consistência dos dados (Data Discovery).
+* Definição de tipos primitivos para a primeira persistência.
+
+---
+
+### 🔄 Pipeline de Dados (ELT)
+
+O pipeline segue a abordagem **ELT (Extract, Load, Transform)** e utiliza a **Arquitetura Medallion** para o refinamento:
+
+1.  **Camada Bronze (Ingestão):** Persistência dos dados brutos em CSV. O objetivo é manter o histórico fiel da fonte para possíveis auditorias ou reprocessamentos.
+2.  **Camada Silver (Trusted):** Etapa de saneamento utilizando **Pandas**. Foram implementadas lógicas de:
+    * Regex para limpeza de símbolos monetários e conversão para Float.
+    * Padronização de nomes de marcas e modelos (Data Cleaning).
+    * Remoção de registros duplicados e tratamento de valores ausentes.
+3.  **Camada Gold (Refined):** Carga dos dados limpos em banco **SQLite**. Os dados são modelados de forma relacional para garantir consultas rápidas pelo dashboard.
+
+---
+
+### 📈 Dashboard Analítico
+
+Para a camada de entrega (Data Visualization), utilizei o **Streamlit** integrado ao **Plotly**. O foco foi transformar tabelas em insights de negócio:
+* **Métricas Kpi:** Preço médio, menor preço e variação por marca.
+* **Análise de Market Share:** Distribuição de modelos disponíveis.
+* **Status do Pipeline:** Visualização da integridade da última carga.
 
 <p align="center">
-  <img src="dashboard_foto.png" width="95%" style="border-radius: 10px;" />
+  <img src="dashboard_foto.png" width="95%" />
 </p>
-
-* **Análise de Dispersão:** Identificação de modelos com preços fora da curva (Outliers).
-* **Market Share por Marca:** Visualização da dominância de estoque entre marcas como NVIDIA e AMD.
-* **Linhagem de Dados:** Monitoramento da saúde de cada camada do pipeline.
 
 ---
 
 ### 🧰 Tecnologias Utilizadas
 
-| Categoria | Tecnologia | Justificativa |
-| :--- | :--- | :--- |
-| **Linguagem** | Python 3.x | Versatilidade para ETL e manipulação de dados. |
-| **Processamento** | Pandas | Eficiência no tratamento de grandes volumes de dados. |
-| **Banco de Dados** | SQLite3 | Banco relacional leve e portátil para o projeto. |
-| **Visualização** | Streamlit | Interface rápida para prototipagem de dashboards. |
-| **Versionamento** | Git & GitHub | Controle de versão e documentação técnica. |
+* **Linguagem:** Python (Scraping e ETL)
+* **Manipulação:** Pandas & NumPy
+* **Banco de Dados:** SQLite (SQL)
+* **Visualização:** Streamlit & Plotly
+* **Versionamento:** Git & GitHub
 
 ---
 
-### 💡 Principais Aprendizados e Evolução
+### 💡 Principais Aprendizados
 
-O desenvolvimento deste projeto permitiu a aplicação prática de conceitos de **Engenharia de Software aplicados a Dados**:
-* **Modularização:** Separação dos scripts em pastas (`scripts/`, `sql/`) para facilitar a manutenção.
-* **Resiliência:** Tratamento de erros durante a extração para evitar quedas no pipeline.
-* **SQL DDL:** Criação de esquemas de tabelas que garantem a integridade dos dados na Gold.
+O desenvolvimento permitiu explorar conceitos fundamentais da Engenharia de Dados:
+* **Modularização de Pipelines:** Separação clara entre scripts de extração, transformação e carga.
+* **Qualidade de Dados:** Implementação de regras de limpeza na camada Silver.
+* **Modelagem Relacional:** Estruturação de tabelas SQL para consumo analítico.
+* **Storytelling de Dados:** Foco em transformar dados técnicos em valor de negócio.
 
 ---
 
