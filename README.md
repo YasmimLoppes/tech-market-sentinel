@@ -10,7 +10,7 @@
 
 ### 🖼️ Preview do Dashboard
 <p align="center">
-  <img src="dashboard_print.png" width="100%" />
+  <img src="dashboard_foto.png" width="100%" />
 </p>
 
 ### 🏗️ Arquitetura do Fluxo (Medallion)
