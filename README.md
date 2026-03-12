@@ -42,7 +42,7 @@ O pipeline segue a abordagem **ELT (Extract, Load, Transform)** e utiliza a **Ar
 ### 📈 Dashboard Analítico
 
 Para a camada de entrega (Data Visualization), utilizei o **Streamlit** integrado ao **Plotly**. O foco foi transformar tabelas em insights de negócio:
-* **Métricas Kpi:** Preço médio, menor preço e variação por marca.
+* **Métricas KPI:** Preço médio, menor preço e variação por marca.
 * **Análise de Market Share:** Distribuição de modelos disponíveis.
 * **Status do Pipeline:** Visualização da integridade da última carga.
 
